@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
             results[ic][ir] = bench.benchmark<PSeqBTree<uint64_t,romlogfc::RomLog,romlogfc::persist>,            romlogfc::RomLog>      (cNames[ic], ratio, testLength, numRuns, numKeys);
             ic++;
 #elif defined USE_ROM_LOG_2F_FC
-            results[ic][ir] = bench.benchmark<PSeqBTree<uint64_t,romlog2ffc::RomLog,romlog2ffc::persist>,        romlog2ffc::RomLog>    (cNames[ic], ratio, testLength, numRuns, numElement);
+            results[ic][ir] = bench.benchmark<PSeqBTree<uint64_t,romlog2ffc::RomLog,romlog2ffc::persist>,        romlog2ffc::RomLog>    (cNames[ic], ratio, testLength, numRuns, numKeys);
             ic++;
 #elif defined USE_ROM_LOG_TS_FC
             results[ic][ir] = bench.benchmark<PSeqBTree<uint64_t,romlogtsfc::RomLog,romlogtsfc::persist>,        romlogtsfc::RomLog>    (cNames[ic], ratio, testLength, numRuns, numKeys);

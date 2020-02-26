@@ -24,12 +24,9 @@ SEQ_PTM_NAMES := \
 	bin-trinityvrfc \
 	bin-quadrafc \
 	bin-quadravrfc \
-	bin-duovrfc \
-#	bin-undologseqfc \
+	bin-undologseqfc \
 	bin-romlog2ffc \
 	bin-romlogtsfc \
-	bin-redolog2ffc \
-	bin-redolog1ffc \
 
 # PTMs for which we want to build concurrent benchmarks
 CONC_PTM_NAMES := \
@@ -42,8 +39,6 @@ CONC_PTM_NAMES := \
 	bin-quadravrfc \
 	bin-trinitytl2 \
 	bin-trinityvrtl2 \
-	bin-trinityvrtl2pl \
-	bin-duovrfc \
 	
 	
 	
@@ -65,7 +60,6 @@ BINARIES_SEQ = \
 	$(subst bin-, bin/pset-btree-1m-,        $(CONC_PTM_NAMES)) \
 	$(subst bin-, bin/pset-ziptree-1m-,      $(CONC_PTM_NAMES)) \
 	$(subst bin-, bin/pset-ravl-1m-,         $(CONC_PTM_NAMES)) \
-#	$(subst bin-, bin/seqwrite-integer-seq-, $(SEQ_PTM_NAMES)) \
 
 	
 #
