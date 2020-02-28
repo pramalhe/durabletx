@@ -1,0 +1,1 @@
+The data files (.txt) containing the results of the benchmarks, will be stored in this folder.
