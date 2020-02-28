@@ -25,6 +25,8 @@ To build, go into the graphs/ folder, modify the Makefile to have the path of wh
     
     cd graphs/
     make -j20
+	./run-seq.py
+	./run-conc.py
 
 
 ## Paper

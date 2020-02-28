@@ -6,19 +6,19 @@ time_duration = "20"   # duration of each run in seconds
 
 # Concurrent benchmarks and ptms
 conc_benchmark_list = [
-#    "pq-ll-",
-#    "pq-fat-",
-#    "pstack-ll-",
-#    "pstack-fat-",
-#    "pset-hash-1m-", 
-#    "pset-tree-1m-",
-#    "pset-ll-10k-",
+    "pq-ll-",
+    "pq-fat-",
+    "pstack-ll-",
+    "pstack-fat-",
+    "pset-hash-1m-", 
+    "pset-tree-1m-",
+    "pset-ll-10k-",
     "psps-integer-", 
     "pset-btree-1m-", 
     "pset-hashfixed-1m-", 
     "pset-ziptree-1m-",
     "pset-ravl-1m-",
-#    "pset-skiplist-1m-",
+    "pset-skiplist-1m-",
     ]
 
 conc_ptm_list = [ 
@@ -33,14 +33,7 @@ conc_ptm_list = [
     "trinitytl2",
     "trinityvrtl2",
     "trinityvrtl2pl",    
-    "duovrfc",        #  These are experimental
-#    "undologseqfc", 
-#    "redolog2ffc",
-#    "redolog1ffc",
-#    "redologtl2",
-#    "romlog2ffc",
-#    "oflf",
-#    "ofwf",
+    "undologseqfc", 
     ]
 
 
