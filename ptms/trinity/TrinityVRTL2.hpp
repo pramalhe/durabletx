@@ -6,8 +6,7 @@
  *
  * This work is published under the MIT license. See LICENSE.txt
  */
-#ifndef _TRINITY_VR_TL2_PERSISTENT_TRANSACTIONAL_MEMORY_H_
-#define _TRINITY_VR_TL2_PERSISTENT_TRANSACTIONAL_MEMORY_H_
+#pragma once
 
 #include <atomic>
 #include <cassert>
@@ -37,7 +36,7 @@
  * seq     - 8 bytes
  * padding - 8 bytes
  *
- * TODO: optimize ranges for read-set: instead of adding one enry at a time, add a range and check a range.  This is VITAL for having fast string comparison
+ * TODO: optimize ranges for read-set: instead of adding one entry at a time, add a range and check a range.  This is VITAL for having fast string comparison
  *
  * r --num=100000 --threads=8 --benchmarks=fillrandom
  *
@@ -179,7 +178,7 @@ extern ThreadRegistry gThreadRegistry;
  */
 class ThreadRegistry {
 private:
-    static const bool kThreadPining = true;
+    static const bool kThreadPining = false;
     alignas(128) std::atomic<bool>      usedTID[REGISTRY_MAX_THREADS];   // Which TIDs are in use by threads
     alignas(128) std::atomic<int>       maxTid {-1};                     // Highest TID (+1) in use by threads
 
@@ -239,18 +238,17 @@ public:
     }
 };
 
+struct UData {
+    uint8_t data[24];  // 3 words of 8 bytes
+};
+
 // Each cache line in the PM region is one of these
 struct PMCacheLine {
-    uint64_t                      main[3]; // No need for 'volatile': only accessed through memcpy()
-    uint64_t                      back[3]; // No need for 'volatile': only accessed through memcpy()
-    tseq_t                        tseq;    // Lock plus sequence (for TL2 and Trinity)
-    uint64_t                      pad;
-
-    void print() {
-        printf("pcl at %p: 0x%lx 0x%lx 0x%lx 0x%lx 0x%lx 0x%lx 0x%lx\n",
-                this, main[0], main[1], main[2], back[0], back[1], back[2], tseq);
-    }
-};
+    UData     main;
+    UData     back;
+    tseq_t    tseq;    // Lock plus sequence (for TL2 and Trinity)
+    uint64_t  pad;
+} __attribute__((packed));
 
 /*
  * EsLocoTu? is an Extremely Simple memory aLOCatOr Two
@@ -607,12 +605,12 @@ inline void storeRange(void* vraddr, uint64_t size, tseq_t p_tseq) {
     for (PMCacheLine* pcl = pclBeg; pcl <= pclEnd; pcl++) {
         if (pcl->tseq == p_tseq) continue;
         // Copy main to back for each pcl
-        std::memcpy(&pcl->back[0], &pcl->main[0], 24); // Ordered store
+        pcl->back = pcl->main;                         // Ordered store
         asm volatile ("" : : : "memory");
         pcl->tseq = p_tseq;                            // Ordered store
         asm volatile ("" : : : "memory");
         // Copy VR to main (all 24 bytes)
-        std::memcpy(&pcl->main[0], (void*)PM_2_VR(&pcl->main[0]), 24); // Ordered store
+        pcl->main = *(UData*)PM_2_VR(&pcl->main);      // Ordered store
         // We know we're only going to touch each pcl one time, therefore, flush it as we go
         PWB(pcl);
     }
@@ -623,7 +621,6 @@ extern std::atomic<uint64_t> *gHashLock;
 
 
 // Volatile log (write-set)
-// One day in the future, if we want to suport large transactions we can make this a dynamic array.
 struct AppendLog {
     // We pre-allocate a write-set with this many entries and if more are needed,
     // we grow them dynamically during the transaction and then delete them when
@@ -669,7 +666,7 @@ struct AppendLog {
         for (PMCacheLine* pcl = pclBeg; pcl <= pclEnd; pcl++) {
             // The whole pcl is protected by the lock, so let's copy the whole thing,
             // regardless of how many words/bytes in the pcl need to be reverted.
-            std::memcpy((void*)PM_2_VR(&pcl->main[0]), &pcl->main[0], 24);
+            *(UData*)PM_2_VR(&pcl->main) = pcl->main;
         }
     }
 
@@ -959,7 +956,7 @@ public:
             }
             reuseRegion = true;
         } else {
-            // File doesn't exist.
+            // File doesn't exist
             pfd = open(filename, O_RDWR|O_CREAT, 0755);
             if (pfd < 0) {
                 perror("open() error");
@@ -1154,7 +1151,7 @@ public:
             const tseq_t tseq = p->tseq;
         	const uint64_t tid = tseq2tid(tseq);
             if (tseq2seq(tseq) == pmd->p_seq[tid*PM_PAD]) {
-            	std::memcpy(&p->main[0], &p->back[0], 24); // ordered stores
+                p->main = p->back;    // ordered stores
             }
             asm volatile("": : :"memory");
             p->tseq = 0;              // ordered store
@@ -1353,4 +1350,4 @@ void thread_registry_deregister_thread(const int tid) {
 #endif // INCLUDED_FROM_MULTIPLE_CPP
 
 }
-#endif /* _TRINITY_VR_TL2_PERSISTENT_TRANSACTIONAL_MEMORY_H_ */
+

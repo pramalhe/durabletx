@@ -28,6 +28,10 @@ namespace pmdk {
 
 using namespace pmem::obj;
 
+// Needed by our benchmarks
+struct tmbase {
+};
+
 auto gpop = pool_base::create(PM_FILE_NAME, "", (size_t)(PM_REGION_SIZE));
 
 std::shared_timed_mutex grwlock {};
@@ -56,6 +60,7 @@ public:
 
     ~PMDKTM() { }
 
+    struct tmbase : public pmdk::tmbase { };
 
     static std::string className() { return "PMDK"; }
 
@@ -190,7 +195,7 @@ public:
             return;
         }
         ++tl_nested_write_trans;
-        transaction::exec_tx(gpop, func);
+        transaction::run(gpop, func);
         --tl_nested_write_trans;
 #endif
     }

@@ -40,7 +40,8 @@ plot \
     '../data/castor/db-1m-trinvrfc.txt'  using 1:($1/$4)  with linespoints notitle ls 8  lw 4 dt 1,     \
     '../data/castor/db-1m-trinvrtl2.txt' using 1:($1/$4)  with linespoints notitle ls 10 lw 4 dt 1,     \
     '../data/castor/db-1m-rocksdb.txt'   using 1:($1/$4)  with linespoints notitle ls 2  lw 4 dt (1,1), \
-    '../data/castor/db-1m-pmemkv.txt'    using 1:($1/$4)  with linespoints notitle ls 1  lw 4 dt (1,1)
+    '../data/castor/db-1m-pmemkv.txt'    using 1:($1/$4)  with linespoints notitle ls 1  lw 4 dt (1,1), \
+    '../data/castor/db-1m-redodb.txt'    using 1:($1/$4)  with linespoints notitle ls 12 lw 4 dt (1,1)
 
 unset ylabel
 set ytics format ""
@@ -54,7 +55,8 @@ plot \
     '../data/castor/db-1m-trinvrfc.txt'  using 1:($1/$2)  with linespoints notitle ls 8  lw 4 dt 1,     \
     '../data/castor/db-1m-trinvrtl2.txt' using 1:($1/$2)  with linespoints notitle ls 10 lw 4 dt 1,     \
     '../data/castor/db-1m-rocksdb.txt'   using 1:($1/$2)  with linespoints notitle ls 2  lw 4 dt (1,1), \
-    '../data/castor/db-1m-pmemkv.txt'    using 1:($1/$2)  with linespoints notitle ls 1  lw 4 dt (1,1)
+    '../data/castor/db-1m-pmemkv.txt'    using 1:($1/$2)  with linespoints notitle ls 1  lw 4 dt (1,1), \
+    '../data/castor/db-1m-redodb.txt'    using 1:($1/$2)  with linespoints notitle ls 12 lw 4 dt (1,1)
 
 set lmargin at screen X+2*(W+M)
 set rmargin at screen X+2*(W+M)+W
@@ -65,8 +67,8 @@ plot \
     '../data/castor/db-1m-trinvrfc.txt'  using 1:($1/$3)  with linespoints notitle ls 8  lw 4 dt 1,     \
     '../data/castor/db-1m-trinvrtl2.txt' using 1:($1/$3)  with linespoints notitle ls 10 lw 4 dt 1,     \
     '../data/castor/db-1m-rocksdb.txt'   using 1:($1/$3)  with linespoints notitle ls 2  lw 4 dt (1,1), \
-    '../data/castor/db-1m-pmemkv.txt'    using 1:($1/$3)  with linespoints notitle ls 1  lw 4 dt (1,1)
-
+    '../data/castor/db-1m-pmemkv.txt'    using 1:($1/$3)  with linespoints notitle ls 1  lw 4 dt (1,1), \
+    '../data/castor/db-1m-redodb.txt'    using 1:($1/$3)  with linespoints notitle ls 12 lw 4 dt (1,1)
 
 
 #
@@ -88,7 +90,8 @@ plot \
     '../data/castor/db-1m-trinvrfc.txt'  using 1:($1/$5)  with linespoints notitle ls 8  lw 4 dt 1,     \
     '../data/castor/db-1m-trinvrtl2.txt' using 1:($1/$5)  with linespoints notitle ls 10 lw 4 dt 1,     \
     '../data/castor/db-1m-rocksdb.txt'   using 1:($1/$5)  with linespoints notitle ls 2  lw 4 dt (1,1), \
-    '../data/castor/db-1m-pmemkv.txt'    using 1:($1/$5)  with linespoints notitle ls 1  lw 4 dt (1,1)
+    '../data/castor/db-1m-pmemkv.txt'    using 1:($1/$5)  with linespoints notitle ls 1  lw 4 dt (1,1), \
+    '../data/castor/db-1m-redodb.txt'    using 1:($1/$5)  with linespoints notitle ls 12 lw 4 dt (1,1)
 
 unset ylabel
 set ytics format ""
@@ -103,7 +106,8 @@ plot \
     '../data/castor/db-1m-trinvrfc.txt'  using 1:($1/$6)  with linespoints notitle ls 8  lw 4 dt 1,     \
     '../data/castor/db-1m-trinvrtl2.txt' using 1:($1/$6)  with linespoints notitle ls 10 lw 4 dt 1,     \
     '../data/castor/db-1m-rocksdb.txt'   using 1:($1/$6)  with linespoints notitle ls 2  lw 4 dt (1,1), \
-    '../data/castor/db-1m-pmemkv.txt'    using 1:($1/$6)  with linespoints notitle ls 1  lw 4 dt (1,1)
+    '../data/castor/db-1m-pmemkv.txt'    using 1:($1/$6)  with linespoints notitle ls 1  lw 4 dt (1,1), \
+    '../data/castor/db-1m-redodb.txt'    using 1:($1/$6)  with linespoints notitle ls 12 lw 4 dt (1,1)
 
 set lmargin at screen X+2*(W+M)
 set rmargin at screen X+2*(W+M)+W
@@ -118,8 +122,7 @@ set label at graph 0.5,1.075 center font "Helvetica-bold,18" "fillseekseq"
 plot \
     '../data/castor/db-1m-trinvrfc.txt'  using 1:($1/$7)  with linespoints notitle ls 8  lw 4 dt 1,     \
     '../data/castor/db-1m-trinvrtl2.txt' using 1:($1/$7)  with linespoints notitle ls 10 lw 4 dt 1,     \
-    '../data/castor/db-1m-rocksdb.txt'   using 1:($1/$7)  with linespoints notitle ls 2  lw 4 dt (1,1), \
-    '../data/castor/db-1m-pmemkv.txt'    using 1:($1/$7)  with linespoints notitle ls 1  lw 4 dt (1,1)
+    '../data/castor/db-1m-rocksdb.txt'   using 1:($1/$7)  with linespoints notitle ls 2  lw 4 dt (1,1)
 
 unset tics
 unset border
@@ -128,13 +131,14 @@ unset ylabel
 unset label
 
 #set key at screen 0.64,0.32 samplen 2.0 bottom font "Helvetica Condensed"
-set key at screen 0.36,0.87 samplen 2.0 bottom font "Helvetica Condensed" spacing 1.3
+set key at screen 0.65,0.87 samplen 2.0 bottom font "Helvetica Condensed" spacing 1.3
 plot [][0:1] \
     2 with linespoints title 'TrinityDB (TL2)'       ls 10 lw 4 dt 1,     \
     2 with linespoints title 'TrinityDB (FC)'        ls 8  lw 4 dt 1
 
-set key at screen 0.65,0.87 samplen 2.0 bottom font "Helvetica Condensed" spacing 1.3
+set key at screen 0.65,0.32 samplen 2.0 bottom font "Helvetica Condensed" spacing 1.3
 plot [][0:1] \
     2 with linespoints title 'RocksDB'               ls 2  lw 4 dt (1,1), \
-    2 with linespoints title 'pmemkv'                ls 1  lw 4 dt (1,1)
+    2 with linespoints title 'pmemkv'                ls 1  lw 4 dt (1,1), \
+    2 with linespoints title 'RedoDB'                ls 12 lw 4 dt (1,1)
 

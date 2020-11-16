@@ -42,8 +42,8 @@ set key top left
 #set arrow from graph 0.85,0.40 to graph 0.85,0.30 size screen 0.015,25 lw 3
 
 plot \
-    '../data/castor/pq-ll-undologfc.txt'      using 1:($2/1e6) with linespoints notitle ls 1  lw 3 dt (1,1), \
-    '../data/castor/pq-ll-redologfc.txt'      using 1:($2/1e6) with linespoints notitle ls 2  lw 3 dt (1,1), \
+    '../data/castor/pq-ll-pmdk.txt'           using 1:($2/1e6) with linespoints notitle ls 1  lw 3 dt (1,1), \
+    '../data/castor/pq-ll-oflf.txt'           using 1:($2/1e6) with linespoints notitle ls 2  lw 3 dt (1,1), \
     '../data/castor/pq-ll-romlogfc.txt'       using 1:($2/1e6) with linespoints notitle ls 4  lw 3 dt (1,1), \
     '../data/castor/pq-ll-quadravrfc.txt'     using 1:($2/1e6) with linespoints notitle ls 9  lw 3 dt 1,     \
     '../data/castor/pq-ll-trinvrfc.txt'       using 1:($2/1e6) with linespoints notitle ls 8  lw 3 dt 1,     \
@@ -65,8 +65,8 @@ plot [][0:1] \
     2 with linespoints title 'TrinVR-FC'   ls 8,  \
     2 with linespoints title 'Quad-FC'     ls 7,  \
     2 with linespoints title 'Trin-FC'     ls 6,  \
-    2 with linespoints title 'Rom-FC'      ls 4,  \
-    2 with linespoints title 'Redo-FC'     ls 2,  \
-    2 with linespoints title 'Undo-FC'     ls 1
+    2 with linespoints title 'RomulusLog'  ls 4,  \
+    2 with linespoints title 'OneFile'     ls 2,  \
+    2 with linespoints title 'PMDK'        ls 1
 	
 unset multiplot

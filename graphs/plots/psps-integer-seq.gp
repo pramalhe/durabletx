@@ -32,8 +32,8 @@ set rmargin at screen X+W
 
 
 plot \
-    '../data/castor/psps-integer-seq-undologfc.txt'    using 1:($2/1E6) with linespoints notitle ls 1 lw 3 dt (1,1), \
-    '../data/castor/psps-integer-seq-redologfc.txt'    using 1:($2/1E6) with linespoints notitle ls 2 lw 3 dt (1,1), \
+    '../data/castor/psps-integer-seq-pmdk.txt'         using 1:($2/1E6) with linespoints notitle ls 1 lw 3 dt (1,1), \
+    '../data/castor/psps-integer-seq-oflf.txt'         using 1:($2/1E6) with linespoints notitle ls 2 lw 3 dt (1,1), \
     '../data/castor/psps-integer-seq-romlogfc.txt'     using 1:($2/1E6) with linespoints notitle ls 4 lw 3 dt (1,1), \
     '../data/castor/psps-integer-seq-trinfc.txt'       using 1:($2/1E6) with linespoints notitle ls 6, \
     '../data/castor/psps-integer-seq-quadrafc.txt'     using 1:($2/1E6) with linespoints notitle ls 7, \
@@ -48,12 +48,12 @@ unset label
 
 set key at screen 0.67,0.47 samplen 3.0 font ",18" opaque noinvert width 1
 plot [][0:1] \
-    2 with linespoints title 'QuadraVR'  ls 9, \
-    2 with linespoints title 'TrinityVR' ls 8, \
-    2 with linespoints title 'Quadra'    ls 7, \
-    2 with linespoints title 'Trinity'   ls 6, \
-    2 with linespoints title 'Rom'       ls 4, \
-    2 with linespoints title 'Redo'      ls 2, \
-    2 with linespoints title 'Undo'      ls 1
+    2 with linespoints title 'QuadraVR'   ls 9, \
+    2 with linespoints title 'TrinityVR'  ls 8, \
+    2 with linespoints title 'Quadra'     ls 7, \
+    2 with linespoints title 'Trinity'    ls 6, \
+    2 with linespoints title 'RomLog'     ls 4, \
+    2 with linespoints title 'OneFile'    ls 2, \
+    2 with linespoints title 'PMDK'       ls 1
 
 unset multiplot

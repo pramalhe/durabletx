@@ -299,6 +299,22 @@
 #define PTM_NAME           dzv4::DualZone::className
 #define PTM_FILEXT         "dzv4"
 
+#elif defined USE_OFLF
+#include "onefile/OneFilePTMLF.hpp"
+#define PTM_CLASS          poflf::OneFileLF
+#define PTM_UPDATE_TX      poflf::OneFileLF::updateTx
+#define PTM_READ_TX        poflf::OneFileLF::readTx
+#define PTM_NEW            poflf::OneFileLF::tmNew
+#define PTM_DELETE         poflf::OneFileLF::tmDelete
+#define PTM_MALLOC         poflf::OneFileLF::tmMalloc
+#define PTM_FREE           poflf::OneFileLF::tmFree
+#define PTM_GET_ROOT       poflf::OneFileLF::get_object
+#define PTM_PUT_ROOT       poflf::OneFileLF::put_object
+#define PTM_TYPE           poflf::tmtype
+#define PTM_PERSIST        poflf::tmtype
+#define PTM_NAME           poflf::OneFileLF::className
+#define PTM_FILEXT         "oflf"
+
 
 #endif
 

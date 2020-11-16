@@ -35,13 +35,13 @@ set format y "%g"
 set yrange [0:6]
 set grid mytics
 
-set label at graph 0.5,1.075 center font "Helvetica-bold,18" "100% updates"
+set label at graph 0.5,1.075 center font "Helvetica-bold,16" "in=50% de=50% lk=0%"
 
 set key at graph 0.99,0.99 samplen 1.5
 
 plot \
-    '../data/castor/pset-ziptree-1m-undologfc.txt'      using 1:($2/1e6) with linespoints notitle ls 1  lw 3 dt (1,1), \
-    '../data/castor/pset-ziptree-1m-redologfc.txt'      using 1:($2/1e6) with linespoints notitle ls 2  lw 3 dt (1,1), \
+    '../data/castor/pset-ziptree-1m-pmdk.txt'           using 1:($2/1e6) with linespoints notitle ls 1  lw 3 dt (1,1), \
+    '../data/castor/pset-ziptree-1m-oflf.txt'           using 1:($2/1e6) with linespoints notitle ls 2  lw 3 dt (1,1), \
     '../data/castor/pset-ziptree-1m-romlogfc.txt'       using 1:($2/1e6) with linespoints notitle ls 4  lw 3 dt (1,1), \
     '../data/castor/pset-ziptree-1m-trinfc.txt'         using 1:($2/1e6) with linespoints notitle ls 6  lw 3 dt 1,     \
     '../data/castor/pset-ziptree-1m-quadrafc.txt'       using 1:($2/1e6) with linespoints notitle ls 7  lw 3 dt 1,     \
@@ -64,11 +64,11 @@ set ytics 2 offset 0.5,0
 set yrange [0:12]
 set style textbox opaque noborder fillcolor rgb "white"
 set label at first 1,12 front boxed left offset -0.5,0 "12"
-set label at graph 0.5,1.075 center font "Helvetica-bold,18" "10% updates"
+set label at graph 0.5,1.075 center font "Helvetica-bold,16" "in=5% de=5% lk=90%"
 
 plot \
-    '../data/castor/pset-ziptree-1m-undologfc.txt'      using 1:($3/1e6) with linespoints notitle ls 1  lw 3 dt (1,1), \
-    '../data/castor/pset-ziptree-1m-redologfc.txt'      using 1:($3/1e6) with linespoints notitle ls 2  lw 3 dt (1,1), \
+    '../data/castor/pset-ziptree-1m-pmdk.txt'           using 1:($3/1e6) with linespoints notitle ls 1  lw 3 dt (1,1), \
+    '../data/castor/pset-ziptree-1m-oflf.txt'           using 1:($3/1e6) with linespoints notitle ls 2  lw 3 dt (1,1), \
     '../data/castor/pset-ziptree-1m-romlogfc.txt'       using 1:($3/1e6) with linespoints notitle ls 4  lw 3 dt (1,1), \
     '../data/castor/pset-ziptree-1m-trinfc.txt'         using 1:($3/1e6) with linespoints notitle ls 6  lw 3 dt 1,     \
     '../data/castor/pset-ziptree-1m-quadrafc.txt'       using 1:($3/1e6) with linespoints notitle ls 7  lw 3 dt 1,     \
@@ -86,11 +86,11 @@ set ytics 2 offset 0.5,0
 set yrange [0:16]
 set style textbox opaque noborder fillcolor rgb "white"
 set label at first 1,16 front boxed left offset -0.5,0 "16"
-set label at graph 0.5,1.075 center font "Helvetica-bold,18" "1% updates"
+set label at graph 0.5,1.075 center font "Helvetica-bold,16" "in=.5% de=.5% lk=99%"
 
 plot \
-    '../data/castor/pset-ziptree-1m-undologfc.txt'      using 1:($4/1e6) with linespoints notitle ls 1  lw 3 dt (1,1), \
-    '../data/castor/pset-ziptree-1m-redologfc.txt'      using 1:($4/1e6) with linespoints notitle ls 2  lw 3 dt (1,1), \
+    '../data/castor/pset-ziptree-1m-pmdk.txt'           using 1:($4/1e6) with linespoints notitle ls 1  lw 3 dt (1,1), \
+    '../data/castor/pset-ziptree-1m-oflf.txt'           using 1:($4/1e6) with linespoints notitle ls 2  lw 3 dt (1,1), \
     '../data/castor/pset-ziptree-1m-romlogfc.txt'       using 1:($4/1e6) with linespoints notitle ls 4  lw 3 dt (1,1), \
     '../data/castor/pset-ziptree-1m-trinfc.txt'         using 1:($4/1e6) with linespoints notitle ls 6  lw 3 dt 1,     \
     '../data/castor/pset-ziptree-1m-quadrafc.txt'       using 1:($4/1e6) with linespoints notitle ls 7  lw 3 dt 1,     \

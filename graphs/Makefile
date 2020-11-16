@@ -1,6 +1,6 @@
-CXX = g++-8
+CXX = g++-9
 CXXFLAGS = -std=c++14 -g -O2 -DPWB_IS_CLFLUSHOPT
-# Use these options for castor-1 (Optane DC PM):
+# Use these options for Optane DC PM:
 #CXXFLAGS = -std=c++14 -g -O2 -DPWB_IS_CLWB -DPM_REGION_SIZE=4*1024*1024*1024ULL -DPM_FILE_NAME="\"/mnt/pmem0/durable\""    
 #CXXFLAGS += -fuse-ld=gold  -fsanitize=address
 # Possible options for PWB are:
@@ -24,9 +24,8 @@ SEQ_PTM_NAMES := \
 	bin-trinityvrfc \
 	bin-quadrafc \
 	bin-quadravrfc \
-	bin-undologseqfc \
-	bin-romlog2ffc \
-	bin-romlogtsfc \
+	bin-pmdk \
+	bin-oflf \
 
 # PTMs for which we want to build concurrent benchmarks
 CONC_PTM_NAMES := \
@@ -39,7 +38,8 @@ CONC_PTM_NAMES := \
 	bin-quadravrfc \
 	bin-trinitytl2 \
 	bin-trinityvrtl2 \
-	
+	bin-pmdk \
+	bin-oflf \
 	
 	
 BINARIES_SEQ = \
@@ -60,6 +60,7 @@ BINARIES_SEQ = \
 	$(subst bin-, bin/pset-btree-1m-,        $(CONC_PTM_NAMES)) \
 	$(subst bin-, bin/pset-ziptree-1m-,      $(CONC_PTM_NAMES)) \
 	$(subst bin-, bin/pset-ravl-1m-,         $(CONC_PTM_NAMES)) \
+#	$(subst bin-, bin/seqwrite-integer-seq-, $(SEQ_PTM_NAMES)) \
 
 	
 #
@@ -194,6 +195,9 @@ bin/psps-integer-seq-duovrfc: psps-integer-seq.cpp PBenchmarkSPSSequential.hpp .
 bin/psps-integer-seq-pmdk: psps-integer-seq.cpp PBenchmarkSPSSequential.hpp ../ptms/pmdk/PMDKTM.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) psps-integer-seq.cpp -o bin/psps-integer-seq-pmdk -lpthread -lpmemobj
 	
+bin/psps-integer-seq-oflf: psps-integer-seq.cpp PBenchmarkSPSSequential.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) psps-integer-seq.cpp -o bin/psps-integer-seq-oflf -lpthread
+	
 
 #
 # Sequential (single-threaded) SeqWrite for persistent memory
@@ -246,6 +250,10 @@ bin/seqwrite-integer-seq-undologseqfc: seqwrite-integer-seq.cpp PBenchmarkSeqWri
 
 bin/seqwrite-integer-seq-pmdk: seqwrite-integer-seq.cpp PBenchmarkSeqWriteSequential.hpp ../ptms/pmdk/PMDKTM.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) seqwrite-integer-seq.cpp -o bin/seqwrite-integer-seq-pmdk -lpthread -lpmemobj
+
+bin/seqwrite-integer-seq-oflf: seqwrite-integer-seq.cpp PBenchmarkSeqWriteSequential.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) seqwrite-integer-seq.cpp -o bin/seqwrite-integer-seq-oflf -lpthread
+
 
 #
 # Sequential (single-threaded) queue enqueue-dequeue
@@ -301,6 +309,12 @@ bin/pq-ll-seq-quadravrfc: pq-ll-seq.cpp PBenchmarkQueues.hpp ../pdatastructures/
 bin/pq-ll-seq-duovrfc: pq-ll-seq.cpp PBenchmarkQueues.hpp ../pdatastructures/psequential/PSeqLinkedListQueue.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pq-ll-seq.cpp -o bin/pq-ll-seq-duovrfc -lpthread
 
+bin/pq-ll-seq-pmdk: pq-ll-seq.cpp PBenchmarkQueues.hpp ../pdatastructures/psequential/PSeqLinkedListQueue.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pq-ll-seq.cpp -o bin/pq-ll-seq-pmdk -lpthread -lpmemobj
+
+bin/pq-ll-seq-oflf: pq-ll-seq.cpp PBenchmarkQueues.hpp ../pdatastructures/psequential/PSeqLinkedListQueue.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pq-ll-seq.cpp -o bin/pq-ll-seq-oflf -lpthread
+
 
 #
 # Sequential (single-threaded) linked list set
@@ -355,6 +369,12 @@ bin/pset-ll-10k-seq-quadravrfc: pset-ll-10k-seq.cpp PBenchmarkSets.hpp ../pdatas
 
 bin/pset-ll-10k-seq-duovrfc: pset-ll-10k-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqLinkedListSet.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pset-ll-10k-seq.cpp -o bin/pset-ll-10k-seq-duovrfc -lpthread
+
+bin/pset-ll-10k-seq-pmdk: pset-ll-10k-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqLinkedListSet.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pset-ll-10k-seq.cpp -o bin/pset-ll-10k-seq-pmdk -lpthread -lpmemobj
+
+bin/pset-ll-10k-seq-oflf: pset-ll-10k-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqLinkedListSet.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pset-ll-10k-seq.cpp -o bin/pset-ll-10k-seq-oflf -lpthread
 
 
 #
@@ -414,6 +434,11 @@ bin/pset-tree-1m-seq-quadravrfc: pset-tree-1m-seq.cpp PBenchmarkSets.hpp ../pdat
 bin/pset-tree-1m-seq-duovrfc: pset-tree-1m-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqRedBlackTree.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pset-tree-1m-seq.cpp -o bin/pset-tree-1m-seq-duovrfc -lpthread
 
+bin/pset-tree-1m-seq-pmdk: pset-tree-1m-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqRedBlackTree.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pset-tree-1m-seq.cpp -o bin/pset-tree-1m-seq-pmdk -lpthread -lpmemobj
+
+bin/pset-tree-1m-seq-oflf: pset-tree-1m-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqRedBlackTree.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pset-tree-1m-seq.cpp -o bin/pset-tree-1m-seq-oflf -lpthread
 
 
 #
@@ -469,6 +494,12 @@ bin/pset-hash-1m-seq-quadravrfc: pset-hash-1m-seq.cpp PBenchmarkSets.hpp ../pdat
 
 bin/pset-hash-1m-seq-duovrfc: pset-hash-1m-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqHashMap.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pset-hash-1m-seq.cpp -o bin/pset-hash-1m-seq-duovrfc -lpthread
+
+bin/pset-hash-1m-seq-pmdk: pset-hash-1m-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqHashMap.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pset-hash-1m-seq.cpp -o bin/pset-hash-1m-seq-pmdk -lpthread -lpmemobj
+
+bin/pset-hash-1m-seq-oflf: pset-hash-1m-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqHashMap.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pset-hash-1m-seq.cpp -o bin/pset-hash-1m-seq-oflf -lpthread
 
 
 
@@ -529,6 +560,13 @@ bin/pset-btree-1m-seq-quadravrfc: pset-btree-1m-seq.cpp PBenchmarkSets.hpp ../pd
 bin/pset-btree-1m-seq-duovrfc: pset-btree-1m-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqBTree.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pset-btree-1m-seq.cpp -o bin/pset-btree-1m-seq-duovrfc -lpthread
 
+bin/pset-btree-1m-seq-pmdk: pset-btree-1m-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqBTree.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pset-btree-1m-seq.cpp -o bin/pset-btree-1m-seq-pmdk -lpthread -lpmemobj
+
+bin/pset-btree-1m-seq-oflf: pset-btree-1m-seq.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqBTree.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pset-btree-1m-seq.cpp -o bin/pset-btree-1m-seq-oflf -lpthread
+
+
 
 #
 #
@@ -575,6 +613,8 @@ bin/psps-integer-romlogfc: psps-integer.cpp PBenchmarkSPS.hpp ../ptms/romuluslog
 bin/psps-integer-pmdk: psps-integer.cpp PBenchmarkSPS.hpp ../ptms/pmdk/PMDKTM.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) psps-integer.cpp -o bin/psps-integer-pmdk -lpthread -lpmemobj
 	
+bin/psps-integer-oflf: psps-integer.cpp PBenchmarkSPS.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) psps-integer.cpp -o bin/psps-integer-oflf -lpthread
 
 #
 # Multithreaded queue
@@ -612,8 +652,15 @@ bin/pq-ll-quadravrfc: pq-ll.cpp PBenchmarkQueues.hpp ../pdatastructures/psequent
 bin/pq-ll-duovrfc: pq-ll.cpp PBenchmarkQueues.hpp ../pdatastructures/psequential/PSeqLinkedListQueue.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pq-ll.cpp -o bin/pq-ll-duovrfc -lpthread
 
+bin/pq-ll-pmdk: pq-ll.cpp PBenchmarkQueues.hpp ../pdatastructures/psequential/PSeqLinkedListQueue.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pq-ll.cpp -o bin/pq-ll-pmdk -lpthread -lpmemobj
+
+bin/pq-ll-oflf: pq-ll.cpp PBenchmarkQueues.hpp ../pdatastructures/psequential/PSeqLinkedListQueue.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pq-ll.cpp -o bin/pq-ll-oflf -lpthread
+
 bin/pq-ll-friedman: pq-ll.cpp PBenchmarkQueues.hpp ../pdatastructures/pqueues/PFriedmanQueue.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_FRIEDMAN $(INCLUDES) pq-ll.cpp -o bin/pq-ll-friedman -lpthread $(PMDKLIBS)
+
 
 
 #
@@ -651,6 +698,12 @@ bin/pq-fat-quadravrfc: pq-fat.cpp PBenchmarkQueues.hpp ../pdatastructures/queues
 
 bin/pq-fat-duovrfc: pq-fat.cpp PBenchmarkQueues.hpp ../pdatastructures/queues/TMLinkedListFatQueueByRef.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pq-fat.cpp -o bin/pq-fat-duovrfc -lpthread
+
+bin/pq-fat-pmdk: pq-fat.cpp PBenchmarkQueues.hpp ../pdatastructures/queues/TMLinkedListFatQueueByRef.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pq-fat.cpp -o bin/pq-fat-ll-pmdk -lpthread -lpmemobj
+
+bin/pq-fat-oflf: pq-fat.cpp PBenchmarkQueues.hpp ../pdatastructures/queues/TMLinkedListFatQueueByRef.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pq-fat.cpp -o bin/pq-fat-ll-oflf -lpthread -lpmemobj
 
 bin/pq-fat-friedman: pq-fat.cpp PBenchmarkQueues.hpp ../pdatastructures/pqueues/PFriedmanQueue.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_FRIEDMAN $(INCLUDES) pq-fat.cpp -o bin/pq-fat-friedman -lpthread $(PMDKLIBS)
@@ -692,6 +745,12 @@ bin/pstack-ll-quadravrfc: pstack-ll.cpp PBenchmarkStacks.hpp ../pdatastructures/
 bin/pstack-ll-duovrfc: pstack-ll.cpp PBenchmarkStacks.hpp ../pdatastructures/stacks/TMLinkedListStackByRef.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pstack-ll.cpp -o bin/pstack-ll-duovrfc -lpthread
 
+bin/pstack-ll-pmdk: pstack-ll.cpp PBenchmarkStacks.hpp ../pdatastructures/stacks/TMLinkedListStackByRef.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pstack-ll.cpp -o bin/pstack-ll-pmdk -lpthread -lpmemobj
+
+bin/pstack-ll-oflf: pstack-ll.cpp PBenchmarkStacks.hpp ../pdatastructures/stacks/TMLinkedListStackByRef.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pstack-ll.cpp -o bin/pstack-ll-oflf -lpthread
+
 
 #
 # Multithreaded stack (fat nodes)
@@ -728,6 +787,12 @@ bin/pstack-fat-quadravrfc: pstack-fat.cpp PBenchmarkStacks.hpp ../pdatastructure
 
 bin/pstack-fat-duovrfc: pstack-fat.cpp PBenchmarkStacks.hpp ../pdatastructures/stacks/TMLinkedListFatStackByRef.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pstack-fat.cpp -o bin/pstack-fat-duovrfc -lpthread
+
+bin/pstack-fat-pmdk: pstack-fat.cpp PBenchmarkStacks.hpp ../pdatastructures/stacks/TMLinkedListFatStackByRef.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pstack-fat.cpp -o bin/pstack-fat-pmdk -lpthread -lpmemobj
+
+bin/pstack-fat-oflf: pstack-fat.cpp PBenchmarkStacks.hpp ../pdatastructures/stacks/TMLinkedListFatStackByRef.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pstack-fat.cpp -o bin/pstack-fat-oflf -lpthread -lpmemobj
 
 
 #
@@ -766,6 +831,11 @@ bin/pset-tree-1m-quadravrfc: pset-tree-1m.cpp PBenchmarkSets.hpp ../pdatastructu
 bin/pset-tree-1m-duovrfc: pset-tree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqRedBlackTree.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pset-tree-1m.cpp -o bin/pset-tree-1m-duovrfc -lpthread
 
+bin/pset-tree-1m-pmdk: pset-tree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqRedBlackTree.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pset-tree-1m.cpp -o bin/pset-tree-1m-pmdk -lpthread -lpmemobj
+
+bin/pset-tree-1m-oflf: pset-tree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqRedBlackTree.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pset-tree-1m.cpp -o bin/pset-tree-1m-oflf -lpthread
 
 # These are just to cross-check results. They're not built by default
 bin/pset-tree-1m-romlr: pset-tree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/TMRedBlackTree.hpp lib/libromulus.a 
@@ -812,6 +882,12 @@ bin/pset-hash-1m-quadravrfc: pset-hash-1m.cpp PBenchmarkSets.hpp ../pdatastructu
 bin/pset-hash-1m-duovrfc: pset-hash-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqHashMap.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pset-hash-1m.cpp -o bin/pset-hash-1m-duovrfc -lpthread
 
+bin/pset-hash-1m-pmdk: pset-hash-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqHashMap.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pset-hash-1m.cpp -o bin/pset-hash-1m-pmdk -lpthread -lpmemobj
+
+bin/pset-hash-1m-oflf: pset-hash-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqHashMap.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pset-hash-1m.cpp -o bin/pset-hash-1m-oflf -lpthread
+
 
 #
 # Multithreaded (fixed-size) hashmap 1M
@@ -848,6 +924,12 @@ bin/pset-hashfixed-1m-quadravrfc: pset-hashfixed-1m.cpp PBenchmarkSets.hpp ../pd
 
 bin/pset-hashfixed-1m-duovrfc: pset-hashfixed-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqHashMap.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pset-hashfixed-1m.cpp -o bin/pset-hashfixed-1m-duovrfc -lpthread
+
+bin/pset-hashfixed-1m-pmdk: pset-hashfixed-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqHashMap.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pset-hashfixed-1m.cpp -o bin/pset-hashfixed-1m-pmdk -lpthread -lpmemobj
+
+bin/pset-hashfixed-1m-oflf: pset-hashfixed-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqHashMap.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pset-hashfixed-1m.cpp -o bin/pset-hashfixed-1m-oflf -lpthread
 
 
 #
@@ -886,6 +968,11 @@ bin/pset-btree-1m-quadravrfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastruc
 bin/pset-btree-1m-duovrfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqRedBlackTree.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-duovrfc -lpthread
 
+bin/pset-btree-1m-pmdk: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqRedBlackTree.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-pmdk -lpthread -lpmemobj
+
+bin/pset-btree-1m-oflf: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/psequential/PSeqRedBlackTree.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-oflf -lpthread
 
 	
 #
@@ -924,6 +1011,11 @@ bin/pset-ziptree-1m-quadravrfc: pset-ziptree-1m.cpp PBenchmarkSets.hpp ../pdatas
 bin/pset-ziptree-1m-duovrfc: pset-ziptree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/TMZipTreeSet.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pset-ziptree-1m.cpp -o bin/pset-ziptree-1m-duovrfc -lpthread
 
+bin/pset-ziptree-1m-pmdk: pset-ziptree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/TMZipTreeSet.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pset-ziptree-1m.cpp -o bin/pset-ziptree-1m-pmdk -lpthread -lpmemobj
+
+bin/pset-ziptree-1m-oflf: pset-ziptree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/TMZipTreeSet.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pset-ziptree-1m.cpp -o bin/pset-ziptree-1m-oflf -lpthread
 
 
 #
@@ -962,4 +1054,9 @@ bin/pset-ravl-1m-quadravrfc: pset-ravl-1m.cpp PBenchmarkSets.hpp ../pdatastructu
 bin/pset-ravl-1m-duovrfc: pset-ravl-1m.cpp PBenchmarkSets.hpp ../pdatastructures/TMRAVLSet.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pset-ravl-1m.cpp -o bin/pset-ravl-1m-duovrfc -lpthread
 
+bin/pset-ravl-1m-pmdk: pset-ravl-1m.cpp PBenchmarkSets.hpp ../pdatastructures/TMRAVLSet.hpp ../ptms/pmdk/PMDKTM.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pset-ravl-1m.cpp -o bin/pset-ravl-1m-pmdk -lpthread -lpmemobj
+
+bin/pset-ravl-1m-oflf: pset-ravl-1m.cpp PBenchmarkSets.hpp ../pdatastructures/TMRAVLSet.hpp ../ptms/onefile/OneFilePTMLF.hpp
+	$(CXX) $(CXXFLAGS) -DUSE_OFLF $(INCLUDES) pset-ravl-1m.cpp -o bin/pset-ravl-1m-oflf -lpthread
 

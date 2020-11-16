@@ -29,6 +29,8 @@ set style line 9 lt 1 lc rgb "#003399" lw 2 pt 10  ps 1.5 dt 1
 set style line 10 lt 1 lc rgb "#669900" lw 2 pt 3  ps 1.5 dt 1
 # RocksDB
 set style line 11 lt 1 lc rgb "#993333" lw 2 pt 2  ps 1.25 dt 1
+# RedoDB
+set style line 12 lt 1 lc rgb "#CC6633" lw 2 pt 1  ps 1.25 dt 1
 pat1 = 'fs solid 0.5 lc rgb "#FFCC00"'
 pat2 = 'fs solid 0.5 lc rgb "#00CC66"'
 pat3 = 'fs solid 0.7 lc rgb "#0066CC"'

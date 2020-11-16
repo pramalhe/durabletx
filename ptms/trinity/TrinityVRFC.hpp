@@ -192,11 +192,14 @@ public:
     }
 };
 
+struct UData {
+    uint8_t data[24];  // 3 words of 8 bytes
+};
 
 // Each cache line in the PM region is one of these
 struct PMCacheLine {
-    uint64_t main[3];
-    uint64_t back[3];
+    UData    main;
+    UData    back;
     uint64_t seq;
     uint64_t pad;
 } __attribute__((packed));
@@ -568,12 +571,13 @@ inline void storeRange(void* vraddr, uint64_t size, uint64_t p_seq) {
     for (PMCacheLine* pcl = pclBeg; pcl <= pclEnd; pcl++) {
         if (pcl->seq == p_seq) continue;
         // Copy main to back for each pcl
-        std::memcpy(&pcl->back[0], &pcl->main[0], 24);                 // Ordered store
+        pcl->back = pcl->main;                                         // Ordered store
+        //std::memcpy(&pcl->back, &pcl->main, 24);
         asm volatile ("" : : : "memory");
         pcl->seq = p_seq;                                              // Ordered store
         asm volatile ("" : : : "memory");
         // Copy VR to main (all 24 bytes)
-        std::memcpy(&pcl->main[0], (void*)PM_2_VR(&pcl->main[0]), 24); // Ordered store
+        pcl->main = *(UData*)PM_2_VR(&pcl->main);                      // Ordered store
         // We know we're only going to touch each pcl one time, therefore, flush it as we go
         PWB(pcl);
     }
@@ -828,7 +832,8 @@ public:
         for (PMCacheLine* pcl = pbeg; pcl < pend; pcl++) {
             if (pcl->seq == p_seq) {
                 // Copy back to main
-                std::memcpy(&pcl->main[0], &pcl->back[0], 24); // ordered stores
+                pcl->main = pcl->back;                         // ordered stores
+                //std::memcpy(&pcl->main, &pcl->back, 24); // ordered stores
                 asm volatile("": : :"memory");
                 pcl->seq = 0;                                  // ordered store
                 PWB(pcl);
