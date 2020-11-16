@@ -1,4 +1,4 @@
-# Durable Disjoint Transactions for Persistent Memory.
+# Efficient Algorithms for Persistent Transactional Memory
 
 This repository contains several PTMs.
 
@@ -13,9 +13,7 @@ This repository contains the source code and paper for multiple STMs capable of 
     ptms/trinity/TrinityVRFC.hpp    Trinity with Volatile Replica(2 fences)
     ptms/redolog/RedoLogFC.hpp      Redo-Log (4 fences)
     ptms/romuluslog/RomLogFC.hpp    RomulusLog (4 fences)
-    ptms/romuluslog/RomLog2FFC.hpp  RomulusLog 2 Fences (2 fences)
     ptms/undolog/UndoLogFC.hpp      Undo-Log durability
-    ptms/undolog/UndoLogTSFC.hpp    Undo-Log durability with one fence per modification
     
 PTMs whose name ends in "FC" use Flat Combining for concurrency. PTMs whose name ends in "TL2" use the TL2 concurrency control for concurrency.
 The VR variants have a volatile replica of the user data and they also support any user type, while the others are meant for 64bit sized user types only.
@@ -28,6 +26,17 @@ To build, go into the graphs/ folder, modify the Makefile to have the path of wh
 	./run-seq.py
 	./run-conc.py
 
+### Do I need PMDK to build?
+Yes if you want to compare with PMDK, but No if you only want to build and run our PTMs.
+The simplest way is to open up the Makefile and comment out the two targets named 'bin-pmdk'.
+
+### I don't have any Optane Persistent Memory, can I run on DRAM just to experiment?
+Yes you can, this is the default when you run make.
+
+### How do I specify a different memory mapped file for the persistent region?
+Edit the Makefile and replace the filename in PM\_FILE\_NAME with a the pat you want: 
+	-DPM_FILE_NAME="\"/mnt/pmem0/durable\""
+
 
 ## Paper
-The paper describing all these algorithms can be obtained at xarchives.
+The paper describing these algorithms will appear in PPoPP 2021, "Efficient Algorithms for Persistent Transactional Memory"

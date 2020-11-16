@@ -16,6 +16,7 @@ PMDKLIBS=-I../../libpmemobj-cpp/include/ -L/usr/local/lib -lpmemobj
 
 # We make different binaries, one for every different PTM, so that we can re-use the same mmap region.
 # These are the PTMs for which we want to build single-threaded benchmarks:
+# If you don't have PMDK installed, then just comment out 'bin-pmdk' and you'll be able to build
 SEQ_PTM_NAMES := \
 	bin-romlogfc \
 	bin-undologfc \
