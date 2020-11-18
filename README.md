@@ -34,8 +34,12 @@ The simplest way is to open up the Makefile and comment out the two targets name
 Yes you can, this is the default when you run make.
 
 ### How do I specify a different memory mapped file for the persistent region?
-Edit the Makefile and replace the filename in PM\_FILE\_NAME with a the pat you want: 
+Edit the Makefile and replace the filename in PM\_FILE\_NAME with a the path you want: 
 	-DPM_FILE_NAME="\"/mnt/pmem0/durable\""
+
+### How do I create a larger mapped file/region of persistent memory?
+Edit the Makefile and increase the default size of 4 GB to something else 
+	-DPM_REGION_SIZE=4*1024*1024*1024ULL
 
 
 ## Paper
