@@ -66,7 +66,7 @@ Transactions need to be passed over in a lambda, for example:
 	};
 	
 	updateTx([&] () {
-	    Foo\* foo = tmNew<Foo>();
+	    Foo* foo = tmNew<Foo>();
 	    foo->a = 1;
 		foo->b = 2;
     });    
