@@ -48,7 +48,7 @@ Edit the Makefile and replace the filename in PM\_FILE\_NAME with a the path you
 #### How do I create a larger mapped file/region of persistent memory?
 Edit the Makefile and increase the default size of 4 GB to something else 
 
-	-DPM_REGION_SIZE=4\*1024\*1024\*1024ULL
+	-DPM_REGION_SIZE=4*1024*1024*1024ULL
 
 
 ## Using one of these PTMs in your application
@@ -65,7 +65,7 @@ Transactions need to be passed over in a lambda, for example:
 	    persist<int> b;
 	};
 	
-	updateTx(\[&\] () {
+	updateTx([&] () {
 	    Foo\* foo = tmNew<Foo>();
 	    foo->a = 1;
 		foo->b = 2;
