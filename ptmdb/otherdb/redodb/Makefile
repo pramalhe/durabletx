@@ -1,4 +1,4 @@
-CXX=g++-8
+CXX=g++-9
 BIN=bin
 CXXFLAGS= -std=c++14 -g -O2 -DPWB_IS_CLFLUSHOPT -DPM_REGION_SIZE=4*1024*1024*1024ULL
 # for castor-1
@@ -11,9 +11,6 @@ CXXFLAGS= -std=c++14 -g -O2 -DPWB_IS_CLFLUSHOPT -DPM_REGION_SIZE=4*1024*1024*102
 
 all: \
 	persistencyclean \
-	bin/ut2 \
-	bin/db_bench_redo \
-	bin/db_bench_redotimed \
 	bin/db_bench_redoopt \
 
 MYDEPS = \
