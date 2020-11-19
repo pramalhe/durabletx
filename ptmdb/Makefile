@@ -1,7 +1,7 @@
 CXX=g++-9
 BIN=bin
 # For testing on laptop
-CXXFLAGS= -std=c++14 -g -DPWB_IS_NOP -Wfatal-errors #-DPM_REGION_SIZE=2*1024*1024*1024ULL -fsanitize=address 
+CXXFLAGS= -std=c++14 -g -DPWB_IS_NOP
 # for using on Optane DC PM
 #CXXFLAGS = -std=c++14 -g -O2 -DPWB_IS_CLWB -DPM_REGION_SIZE=32*1024*1024*1024ULL -DPM_FILE_NAME="\"/mnt/pmem0/durable\""
 
