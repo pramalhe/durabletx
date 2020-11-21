@@ -12,12 +12,10 @@ This repository contains the source code and paper for multiple STMs capable of 
     ptms/quadra/QuadraVRFC.hpp      Quadra with Volatile Replica (1 fence)
     ptms/trinity/TrinityFC.hpp      Trinity (2 fences)
     ptms/trinity/TrinityVRFC.hpp    Trinity with Volatile Replica (2 fences)
-	ptms/trinity/TrinityVRTL2.hpp   Trinity with Volatile Replica and TL2
-    ptms/redolog/RedoLogFC.hpp      Redo-Log (4 fences)
+    ptms/trinity/TrinityVRTL2.hpp   Trinity with Volatile Replica and TL2
     ptms/romuluslog/RomLogFC.hpp    RomulusLog (4 fences)
-    ptms/undolog/UndoLogFC.hpp      Undo-Log durability
     
-PTMs whose name ends in "FC" use Flat Combining for concurrency. PTMs whose name ends in "TL2" use the TL2 concurrency control for concurrency.
+PTMs whose name ends in "FC" use Flat Combining for concurrency. PTMs whose name ends in "TL2" use our own implementation of the TL2 concurrency control for concurrency.
 The VR variants have a volatile replica of the user data and they also support any user type, while the others are meant for 64bit sized user types only.
 For simplicity of usage, each PTM is implemented as a single C++ header file.
 All these PTMS provide durable linearizable (ACID) transactions.
@@ -30,12 +28,17 @@ To build, go into the graphs/ folder, modify the Makefile to have the path of wh
     
     cd graphs/
     make -j20
-	./run-seq.py
-	./run-conc.py
+
+If you're on an ubuntu system you may need some packages:
+
+    sudo apt-get update
+    sudo apt-get install g++-9 gcc-9 python make
+
 
 #### Do I need PMDK to build?
 Yes if you want to compare with PMDK, but No if you only want to build and run our PTMs.
-The simplest way is to open up the Makefile and comment out the two targets named 'bin-pmdk'.
+We have also included updated versions of OneFile and Romulus in the repository.
+If you don't have PMDK installed then the simplest way to build is to open up the Makefile and comment out the two targets named 'bin-pmdk'.
 
 #### I don't have any Optane Persistent Memory, can I run on DRAM just to experiment?
 Yes you can, this is the default when you run make.
@@ -50,6 +53,18 @@ Edit the Makefile and increase the default size of 4 GB to something else
 
 	-DPM_REGION_SIZE=4*1024*1024*1024ULL
 
+and make sure to enable flushing to PM by passing the option
+
+    -DPWB_IS_CLWB
+
+
+## Running the benchmarks
+
+We have two kinds of benchmarks, 'run-seq.py' for sequential data structures and transactions (non concurrent), and 'run-conc.py' for concurrent data structures (which use fully ACID transactions). 
+
+    ./run-seq.py
+    ./run-conc.py
+
 
 ## Using one of these PTMs in your application
 
@@ -62,15 +77,15 @@ Transactions need to be passed over in a lambda, for example:
     using namespace trinityvrtl2;
     struct Foo {
         persist<int> a;
-	    persist<int> b;
+        persist<int> b;
 	};
 	
 	updateTx([&] () {
 	    Foo* foo = tmNew<Foo>();
 	    foo->a = 1;
-		foo->b = 2;
+       foo->b = 2;
     });    
 
 
 ## Paper
-The paper describing these algorithms will appear in PPoPP 2021, "Efficient Algorithms for Persistent Transactional Memory"
+The paper describing the Trinity and Quadra algorithms will appear in PPoPP 2021, "Efficient Algorithms for Persistent Transactional Memory"
