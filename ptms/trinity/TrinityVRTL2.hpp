@@ -289,7 +289,7 @@ private:
     static const uint64_t kSlabSize = 4*1024*1024;
 
     struct block {
-        P<block*>   next;   // Pointer to next block in free-list (when block is in free-list)
+        P<block*>   next;    // Pointer to next block in free-list (when block is in free-list)
         P<uint64_t> size2;   // Exponent of power of two of the size of this block in bytes.
     };
 
@@ -394,7 +394,6 @@ private:
     // Pointer to location of PM metadata of EsLoco
     ELMetadata* meta {nullptr};
 
-
     // For powers of 2, returns the highest bit, otherwise, returns the next highest bit
     uint64_t highestBit(uint64_t val) {
         uint64_t b = 0;
@@ -406,7 +405,6 @@ private:
     uint8_t* aligned(uint8_t* addr) {
         return (uint8_t*)((size_t)addr & (~0x3FULL)) + 128;
     }
-
 
 public:
     void init(void* addressOfMemoryPool, size_t sizeOfMemoryPool, bool clearPool=true) {
@@ -461,7 +459,7 @@ public:
             }
             // Take space from the slab
             myblock = (block*)meta->tldata[tid].slabtop.pload();
-            myblock->size2 = bsize;                                       // pstore()
+            myblock->size2 = bsize;                                      // pstore()
             meta->tldata[tid].slabtop.pstore((uint8_t*)myblock + asize); // pstore()
             meta->tldata[tid].slabsize -= asize;                         // pstore()
         } else if (!meta->gflists[bsize].isEmpty()) {
