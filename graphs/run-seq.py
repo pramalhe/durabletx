@@ -16,18 +16,12 @@ seq_benchmark_list = [
     
 seq_ptm_list = [
     "oflf",
-#    "pmdk",
-#    "undologfc", 
-#    "redologfc",
-#    "redolog2ffc",
-#    "redolog1ffc",
-#    "romlogfc",
-#    "romlog2ffc",
-#    "trinityfc",
-#    "trinityvrfc",
-#    "quadrafc",
-#    "quadravrfc",
-#    "duovrfc",
+    "pmdk",
+    "romlogfc",
+    "trinityfc",
+    "trinityvrfc",
+    "quadrafc",
+    "quadravrfc",
     ]
 
 print "\n+++ Running sequential microbenchmarks (pin threads to first core) +++\n"
