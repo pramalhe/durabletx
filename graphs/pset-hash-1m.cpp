@@ -23,9 +23,6 @@
 #elif defined USE_ROM_LOG_FC
 #include "ptms/romuluslog/RomLogFC.hpp"
 #define DATA_FILE "data/pset-hash-1m-romlogfc.txt"
-#elif defined USE_OFLF
-#include "ptms/onefile/OneFilePTMLF.hpp"
-#define DATA_FILE "data/pset-hash-1m-oflf.txt"
 #elif defined USE_OFWF
 #include "ptms/onefile/OneFilePTMWF.hpp"
 #define DATA_FILE "data/pset-hash-1m-ofwf.txt"
@@ -74,8 +71,6 @@ int main(int argc, char* argv[]) {
             results[it][ir] = bench.benchmark<TMHashMap<uint64_t,uint64_t,romuluslog::RomulusLog,romuluslog::persist>,  romuluslog::RomulusLog>  (cName, ratio, testLength, numRuns, numKeys, nThreads);
 #elif defined USE_ROM_LOG_FC
             results[it][ir] = bench.benchmark<TMHashMap<uint64_t,uint64_t,romlogfc::RomLog,romlogfc::persist>,          romlogfc::RomLog>        (cName, ratio, testLength, numRuns, numKeys, nThreads);
-#elif defined USE_OFLF
-            results[it][ir] = bench.benchmark<TMHashMapWF<uint64_t,uint64_t,poflf::OneFileLF,poflf::tmtype>,                   poflf::OneFileLF>        (cName, ratio, testLength, numRuns, numKeys, nThreads);
 #elif defined USE_OFWF
             results[it][ir] = bench.benchmark<TMHashMapWF<uint64_t,uint64_t,pofwf::OneFileWF,pofwf::tmtype>,                   pofwf::OneFileWF>        (cName, ratio, testLength, numRuns, numKeys, nThreads);
 #else

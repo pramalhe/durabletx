@@ -29,9 +29,6 @@
 #elif defined USE_ROM_LOG_FC
 #include "ptms/romuluslog/RomLogFC.hpp"
 #define DATA_FILE "data/psps-integer-romlogfc.txt"
-#elif defined USE_OFLF
-#include "ptms/onefile/OneFilePTMLF.hpp"
-#define DATA_FILE "data/psps-integer-oflf.txt"
 #elif defined USE_OFWF
 #include "ptms/onefile/OneFilePTMWF.hpp"
 #define DATA_FILE "data/psps-integer-ofwf.txt"
@@ -82,8 +79,6 @@ int main(int argc, char* argv[]) {
             results[it][is] = bench.benchmarkSPSInteger<romuluslog::RomulusLog,  romuluslog::persist>   (cName, testLength, nWords, numRuns);
 #elif defined USE_ROM_LOG_FC
             results[it][is] = bench.benchmarkSPSInteger<romlogfc::RomLog,        romlogfc::persist>     (cName, testLength, nWords, numRuns);
-#elif defined USE_OFLF
-            results[it][is] = bench.benchmarkSPSInteger<poflf::OneFileLF,        poflf::tmtype>         (cName, testLength, nWords, numRuns);
 #elif defined USE_OFWF
             results[it][is] = bench.benchmarkSPSInteger<pofwf::OneFileWF,        pofwf::tmtype>         (cName, testLength, nWords, numRuns);
 #elif defined USE_DUALZONE_2F_FC

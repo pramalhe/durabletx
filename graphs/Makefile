@@ -18,35 +18,31 @@ PMDKLIBS=-I../../libpmemobj-cpp/include/ -L/usr/local/lib -lpmemobj
 # These are the PTMs for which we want to build single-threaded benchmarks:
 # If you don't have PMDK installed, then just comment out 'bin-pmdk' and you'll be able to build
 SEQ_PTM_NAMES := \
-	bin-romlogfc \
-	bin-undologfc \
-	bin-redologfc \
 	bin-trinityfc \
 	bin-trinityvrfc \
 	bin-quadrafc \
 	bin-quadravrfc \
-	bin-pmdk \
+	bin-romlogfc \
 	bin-oflf \
+	bin-pmdk \
 
 # PTMs for which we want to build concurrent benchmarks
 CONC_PTM_NAMES := \
-	bin-romlogfc \
-	bin-undologfc \
-	bin-redologfc \
 	bin-trinityfc \
 	bin-quadrafc \
 	bin-trinityvrfc \
 	bin-quadravrfc \
 	bin-trinitytl2 \
 	bin-trinityvrtl2 \
-	bin-pmdk \
+	bin-romlogfc \
 	bin-oflf \
+	bin-pmdk \
 	
-	
+
+# The following binaries will be built for the PTMs selected above	
 BINARIES_SEQ = \
 	$(subst bin-, bin/psps-integer-seq-,     $(SEQ_PTM_NAMES)) \
 	$(subst bin-, bin/pq-ll-seq-,            $(SEQ_PTM_NAMES)) \
-	$(subst bin-, bin/pset-ll-10k-seq-,      $(SEQ_PTM_NAMES)) \
 	$(subst bin-, bin/pset-tree-1m-seq-,     $(SEQ_PTM_NAMES)) \
 	$(subst bin-, bin/pset-hash-1m-seq-,     $(SEQ_PTM_NAMES)) \
 	$(subst bin-, bin/pset-btree-1m-seq-,    $(SEQ_PTM_NAMES)) \
@@ -61,7 +57,6 @@ BINARIES_SEQ = \
 	$(subst bin-, bin/pset-btree-1m-,        $(CONC_PTM_NAMES)) \
 	$(subst bin-, bin/pset-ziptree-1m-,      $(CONC_PTM_NAMES)) \
 	$(subst bin-, bin/pset-ravl-1m-,         $(CONC_PTM_NAMES)) \
-#	$(subst bin-, bin/seqwrite-integer-seq-, $(SEQ_PTM_NAMES)) \
 
 	
 #

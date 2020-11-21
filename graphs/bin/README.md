@@ -1,1 +1,0 @@
-The binaries for the benchmarks will be stored here

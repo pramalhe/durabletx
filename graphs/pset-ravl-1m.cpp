@@ -23,9 +23,6 @@
 #elif defined USE_ROM_LOG_FC
 #include "ptms/romuluslog/RomLogFC.hpp"
 #define DATA_FILE "data/pset-ravl-1m-romlogfc.txt"
-#elif defined USE_OFLF
-#include "ptms/onefile/OneFilePTMLF.hpp"
-#define DATA_FILE "data/pset-ravl-1m-oflf.txt"
 #elif defined USE_OFWF
 #include "ptms/onefile/OneFilePTMWF.hpp"
 #define DATA_FILE "data/pset-ravl-1m-ofwf.txt"
@@ -68,8 +65,6 @@ int main(int argc, char* argv[]) {
             results[it][ir] = bench.benchmark<TMRAVLSetWF<uint64_t,cxredo::CXRedo,cxredo::persist>,                   cxredo::CXRedo>          (cName, ratio, testLength, numRuns, numKeys, nThreads);
 #elif defined USE_CXREDOTIMED
             results[it][ir] = bench.benchmark<TMRAVLSetWF<uint64_t,cxredotimed::CXRedoTimed,cxredotimed::persist>,    cxredotimed::CXRedoTimed>(cName, ratio, testLength, numRuns, numKeys, nThreads);
-#elif defined USE_OFLF
-            results[it][ir] = bench.benchmark<TMRAVLSetWF<uint64_t,poflf::OneFileLF,poflf::tmtype>,                   poflf::OneFileLF>        (cName, ratio, testLength, numRuns, numKeys, nThreads);
 #elif defined USE_OFWF
             results[it][ir] = bench.benchmark<TMRAVLSetWF<uint64_t,pofwf::OneFileWF,pofwf::tmtype>,                   pofwf::OneFileWF>        (cName, ratio, testLength, numRuns, numKeys, nThreads);
 #elif defined USE_ROMLR

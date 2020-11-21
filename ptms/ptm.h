@@ -168,8 +168,6 @@
 #define PTM_STRLEN         trinityvrfc::Trinity::tmStrlen
 #define PTM_MEMCPY         trinityvrfc::Trinity::tmMemcpy
 
-
-
 #elif defined USE_TRINITY_VR_TL2
 #include "trinity/TrinityVRTL2.hpp"
 #define PTM_CLASS          trinityvrtl2::Trinity
@@ -208,96 +206,6 @@
 #define PTM_PERSIST        trinityvrtl2pl::persist
 #define PTM_NAME           trinityvrtl2pl::Trinity::className
 #define PTM_FILEXT         "trinvrtl2pl"
-
-#elif defined USE_DUO_VR_FC
-#include "duo/DuoVRFC.hpp"
-#define PTM_CLASS          duovrfc::Duo
-#define PTM_UPDATE_TX      duovrfc::Duo::updateTx
-#define PTM_READ_TX        duovrfc::Duo::readTx
-#define PTM_NEW            duovrfc::Duo::tmNew
-#define PTM_DELETE         duovrfc::Duo::tmDelete
-#define PTM_MALLOC         duovrfc::Duo::tmMalloc
-#define PTM_FREE           duovrfc::Duo::tmFree
-#define PTM_GET_ROOT       duovrfc::Duo::get_object
-#define PTM_PUT_ROOT       duovrfc::Duo::put_object
-#define PTM_TYPE           duovrfc::persist
-#define PTM_PERSIST        duovrfc::persist
-#define PTM_BASE           duovrfc::tmbase
-#define PTM_NAME           duovrfc::Duo::className
-#define PTM_FILEXT         "duovrfc"
-#define PTM_MEMCPY         duovrfc::Duo::tmMemcpy
-#define PTM_MEMCMP         duovrfc::Duo::tmMemcmp
-#define PTM_STRCMP         duovrfc::Duo::tmStrcmp
-#define PTM_MEMSET         duovrfc::Duo::tmMemset
-#define PTM_STRLEN         duovrfc::Duo::tmStrlen
-#define PTM_MEMCPY         duovrfc::Duo::tmMemcpy
-
-//
-// Dual-Zone variants
-//
-#elif defined USE_DZ_V1
-#include "dualzone/DualZoneV1.hpp"
-#define PTM_CLASS          dzv1::DualZone
-#define PTM_UPDATE_TX      dzv1::DualZone::updateTx
-#define PTM_READ_TX        dzv1::DualZone::readTx
-#define PTM_NEW            dzv1::DualZone::tmNew
-#define PTM_DELETE         dzv1::DualZone::tmDelete
-#define PTM_MALLOC         dzv1::DualZone::tmMalloc
-#define PTM_FREE           dzv1::DualZone::tmFree
-#define PTM_GET_ROOT       dzv1::DualZone::get_object
-#define PTM_PUT_ROOT       dzv1::DualZone::put_object
-#define PTM_TYPE           dzv1::persist
-#define PTM_PERSIST        dzv1::persist
-#define PTM_NAME           dzv1::DualZone::className
-#define PTM_FILEXT         "dzv1"
-
-#elif defined USE_DZ_V2
-#include "dualzone/DualZoneV2.hpp"
-#define PTM_CLASS          dzv2::DualZone
-#define PTM_UPDATE_TX      dzv2::DualZone::updateTx
-#define PTM_READ_TX        dzv2::DualZone::readTx
-#define PTM_NEW            dzv2::DualZone::tmNew
-#define PTM_DELETE         dzv2::DualZone::tmDelete
-#define PTM_MALLOC         dzv2::DualZone::tmMalloc
-#define PTM_FREE           dzv2::DualZone::tmFree
-#define PTM_GET_ROOT       dzv2::DualZone::get_object
-#define PTM_PUT_ROOT       dzv2::DualZone::put_object
-#define PTM_TYPE           dzv2::persist
-#define PTM_PERSIST        dzv2::persist
-#define PTM_NAME           dzv2::DualZone::className
-#define PTM_FILEXT         "dzv2"
-
-#elif defined USE_DZ_V3
-#include "dualzone/DualZoneV3.hpp"
-#define PTM_CLASS          dzv3::DualZone
-#define PTM_UPDATE_TX      dzv3::DualZone::updateTx
-#define PTM_READ_TX        dzv3::DualZone::readTx
-#define PTM_NEW            dzv3::DualZone::tmNew
-#define PTM_DELETE         dzv3::DualZone::tmDelete
-#define PTM_MALLOC         dzv3::DualZone::tmMalloc
-#define PTM_FREE           dzv3::DualZone::tmFree
-#define PTM_GET_ROOT       dzv3::DualZone::get_object
-#define PTM_PUT_ROOT       dzv3::DualZone::put_object
-#define PTM_TYPE           dzv3::persist
-#define PTM_PERSIST        dzv3::persist
-#define PTM_NAME           dzv3::DualZone::className
-#define PTM_FILEXT         "dzv3"
-
-#elif defined USE_DZ_V4
-#include "dualzone/DualZoneV4.hpp"
-#define PTM_CLASS          dzv4::DualZone
-#define PTM_UPDATE_TX      dzv4::DualZone::updateTx
-#define PTM_READ_TX        dzv4::DualZone::readTx
-#define PTM_NEW            dzv4::DualZone::tmNew
-#define PTM_DELETE         dzv4::DualZone::tmDelete
-#define PTM_MALLOC         dzv4::DualZone::tmMalloc
-#define PTM_FREE           dzv4::DualZone::tmFree
-#define PTM_GET_ROOT       dzv4::DualZone::get_object
-#define PTM_PUT_ROOT       dzv4::DualZone::put_object
-#define PTM_TYPE           dzv4::persist
-#define PTM_PERSIST        dzv4::persist
-#define PTM_NAME           dzv4::DualZone::className
-#define PTM_FILEXT         "dzv4"
 
 #elif defined USE_OFLF
 #include "onefile/OneFilePTMLF.hpp"
