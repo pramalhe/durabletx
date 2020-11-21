@@ -36,16 +36,19 @@
  * seq     - 8 bytes
  * padding - 8 bytes
  *
- * TODO: optimize ranges for read-set: instead of adding one entry at a time, add a range and check a range.  This is VITAL for having fast string comparison
+ * For concurrency we use something similar to TL2, but not quite the same:
+ * - Load interposing is made with post-validation, no pre-validation is made. See persistvr::load();
+ * - On abort, we must increment the global clock;
+ * - A full fence is done before the commit of the transaction in endTx(), to prevent re-ordering
+ *   of the last modification in the transaction with the rad-set validation;
+ * - The global clock and the locks are all kept in volatile memory for efficiency;
  *
- * r --num=100000 --threads=8 --benchmarks=fillrandom
- *
+ * Other characteristics:
  * - Durable commit is done after concurrent commit, without modification on PM unless the tx is (concurrent) committed;
- * - Supports ranges (not properly tested though)
- * - Has improved error handling in mmap() and file openeing
+ * - Supports ranges
+ * - Has improved error handling in mmap() and file opening
  *
  * See durable transactions paper
- *
  */
 
 

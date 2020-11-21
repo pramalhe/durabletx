@@ -65,6 +65,8 @@ We have two kinds of benchmarks, 'run-seq.py' for sequential data structures and
     ./run-seq.py
     ./run-conc.py
 
+By default they will execute runs of 20 seconds but this can be changed by editting the python scripts.
+
 
 ## Using one of these PTMs in your application
 
@@ -80,10 +82,10 @@ Transactions need to be passed over in a lambda, for example:
         persist<int> b;
 	};
 	
-	updateTx([&] () {
-	    Foo* foo = tmNew<Foo>();
-	    foo->a = 1;
-       foo->b = 2;
+    updateTx([&] () {
+        Foo* foo = tmNew<Foo>();
+        foo->a = 1;
+        foo->b = 2;
     });    
 
 
