@@ -27,7 +27,6 @@
 /*
  * <h1> Trinity + Volatile Region + Persistent TL2 + volatile locks</h1>
  *
- * In this version of Trinity we write first the 'seq' then the 'main' and then the 'back'.
  * This variant has a volatile replica of 'main', which means we can use ranges and it is much faster.
  * There is a volatile region (VR) and a PM region. Each consecutive 24 bytes (3x64bit words) in the VR region
  * maps to a cacheline in the PM region. A cacheline in the PM region is composed of:
@@ -42,6 +41,8 @@
  * - A full fence is done before the commit of the transaction in endTx(), to prevent re-ordering
  *   of the last modification in the transaction with the rad-set validation;
  * - The global clock and the locks are all kept in volatile memory for efficiency;
+ * - The write-set does not contain any data. On commit, the data is taken from VR and written to PR
+ *   using the Trinity algorithm. On abort, the opposite is done;
  *
  * Other characteristics:
  * - Durable commit is done after concurrent commit, without modification on PM unless the tx is (concurrent) committed;
