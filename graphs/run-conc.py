@@ -2,7 +2,7 @@
 import os
 
 bin_folder = "bin/"
-time_duration = "20"   # duration of each run in seconds
+time_duration = "1"   # duration of each run in seconds
 
 # Concurrent benchmarks and ptms
 conc_benchmark_list = [
