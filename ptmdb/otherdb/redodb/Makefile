@@ -1,11 +1,11 @@
 CXX=g++-9
 BIN=bin
-CXXFLAGS= -std=c++14 -g -O2 -DPWB_IS_CLFLUSHOPT -DPM_REGION_SIZE=4*1024*1024*1024ULL
+#CXXFLAGS= -std=c++14 -g -O2 -DPWB_IS_CLFLUSHOPT -DPM_REGION_SIZE=4*1024*1024*1024ULL
 # for castor-1
-#CXXFLAGS = -std=c++14 -g -O2 -DPWB_IS_CLWB -DPM_REGION_SIZE=122*1024*1024*1024ULL -DPM_USE_DAX -DPM_FILE_NAME="\"/mnt/pmem0/durable\""
+CXXFLAGS = -std=c++14 -g -O2 -DPWB_IS_CLWB -DPM_REGION_SIZE=122*1024*1024*1024ULL -DPM_USE_DAX -DPM_FILE_NAME="\"/mnt/pmem0/durable\""
 # Possible options for PWB are:
 # -DPWB_IS_CLFLUSH		pwb is a CLFLUSH and pfence/psync are nops      (Broadwell)
-# -DPWB_IS_CLFLUSHOPT	pwb is a CLFLUSHOPT and pfence/psync are SFENCE (Kaby Lake) 
+# -DPWB_IS_CLFLUSHOPT		pwb is a CLFLUSHOPT and pfence/psync are SFENCE (Kaby Lake) 
 # -DPWB_IS_CLWB			pwb is a CLWB and pfence/psync are SFENCE       (Sky Lake SP, or Canon Lake SP and beyond)
 # -DPWB_IS_NOP			pwb/pfence/psync are nops. Used for shared memory persistence
 
