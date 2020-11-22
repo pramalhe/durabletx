@@ -57,6 +57,11 @@ and make sure to enable flushing to PM by passing the option
 
     -DPWB_IS_CLWB
 
+If you have an Haswell or Broadwell CPU, then they won't support Optane, but you can still run on DRAM to do testing, though you'll need to set the appropriate flush instruction (clwb does not exist on older CPUs). If you're unsure, use:
+
+    -DPWB_IS_CLFLUSH
+
+
 
 ## Running the benchmarks
 
