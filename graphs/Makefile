@@ -1,7 +1,7 @@
 CXX = g++-9
-CXXFLAGS = -std=c++14 -g -O2 -DPWB_IS_CLFLUSHOPT
+#CXXFLAGS = -std=c++14 -g -O2 -DPWB_IS_CLFLUSHOPT
 # Use these options for Optane DC PM:
-#CXXFLAGS = -std=c++14 -g -O2 -DPWB_IS_CLWB -DPM_REGION_SIZE=4*1024*1024*1024ULL -DPM_FILE_NAME="\"/mnt/pmem0/durable\""    
+CXXFLAGS = -std=c++14 -g -O2 -DPWB_IS_CLWB -DPM_REGION_SIZE=4*1024*1024*1024ULL -DPM_FILE_NAME="\"/mnt/pmem0/durable\""    
 #CXXFLAGS += -fuse-ld=gold  -fsanitize=address
 # Possible options for PWB are:
 # -DPWB_IS_CLFLUSH		pwb is a CLFLUSH and pfence/psync are nops
