@@ -79,7 +79,7 @@ private:
 
     static const long long NSEC_IN_SEC = 1000000000LL;
 
-    const uint64_t kNumElements = 100000; // 100k elements in the queue
+    const uint64_t kNumElements = 1000; // 1k elements in the queue
 
     int numThreads;
 
