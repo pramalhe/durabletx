@@ -19,9 +19,11 @@ thread_list = [
 
 print "\n+++ Generating YCSB workloads +++\n"
 for workload in workload_list:
-    for thread_option in thread_list:
-        print "bin/ycsb_generator" + workload + thread_option
-        os.system("bin/ycsb_generator" + workload + thread_option)
-        os.system("mv workloads/a-* workloads/1m/")
-        os.system("mv workloads/b-* workloads/1m/")
+    for thread in thread_list:
+        print "bin/ycsb_generator" + workload + thread
+        os.system("bin/ycsb_generator" + workload + thread)
+
+# Move all the workloads to workloads/1m/
+os.system("mv workloads/a-* workloads/1m/")
+os.system("mv workloads/b-* workloads/1m/")
     

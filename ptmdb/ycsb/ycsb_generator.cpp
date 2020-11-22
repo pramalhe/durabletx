@@ -105,7 +105,7 @@ int main(int argc, char* argv[]) {
 
     if (argc >= 3) {
 	if (strcmp(argv[1],"a") == 0) w.init(workloada); // YCSB-A
-	else if (strcmp(argv[1],"b") == 0) w.init(workloada); // YCSB-B
+	else if (strcmp(argv[1],"b") == 0) w.init(workloadb); // YCSB-B
 	else printf("ERROR: unknown workload [%s]\n", argv[1]);
         threadcount = atoi(argv[2]);
     } else {
