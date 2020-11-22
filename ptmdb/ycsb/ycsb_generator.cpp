@@ -101,11 +101,17 @@ int main(int argc, char* argv[]) {
 
     char key[workloada.key_size_+1];
     int threadcount = 1;
-
-    if (argc >= 2) threadcount = atoi(argv[1]);
-
     Workload w {};
-    w.init(workloada);
+
+    if (argc >= 3) {
+	if (strcmp(argv[1],"a") == 0) w.init(workloada); // YCSB-A
+	else if (strcmp(argv[1],"b") == 0) w.init(workloada); // YCSB-B
+	else printf("ERROR: unknown workload [%s]\n", argv[1]);
+        threadcount = atoi(argv[2]);
+    } else {
+	printf("Usage is ./ycsb_generator [a|b] <num-threads>\n");
+	w.init(workloada);
+    }
 
     // Generate the 'load' files
     for (int it = 0; it < threadcount; it++) {
