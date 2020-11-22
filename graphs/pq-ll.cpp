@@ -47,8 +47,10 @@ int main(void) {
     const int numRuns = 1;                                           // Number of runs
 #ifdef USE_FRIEDMAN
     const long numPairs = 1*MILLION;                                 // FHMP leaks so we can't do as many iterations
+#elif defined USE_OFLF
+    const long numPairs = 1*MILLION;                                 // for OneFile there is not enough log space for 10M    
 #else
-    const long numPairs = 1*MILLION;                                // 10M is fast enough on the laptop, but on AWS we can use 100M
+    const long numPairs = 10*MILLION;                                // 10M is fast enough on the laptop, but on AWS we can use 100M
 #endif
     uint64_t results[threadList.size()];
     std::string cName;
