@@ -13,12 +13,10 @@ db_bench_fillseekseq = " --benchmarks=fillseekseq --reads=1000"
 #
 db_list = [
     "bin/db_bench_trinvrtl2",
-#    "bin/db_bench_trinvrfc",
-#    "otherdb/redodb/bin/db_bench_redoopt",
-#    "bin/db_bench_duovrfc", 
-#    "~/pmemkv-tools/pmemkv_bench --db_size_in_gb=32 --db=/mnt/pmem0/pmemkv" 
-#    "~/rocksdb/db_bench --db=/mnt/pmem0/rocksdb --sync"
-#    "/home/ramalhetea/pramalhe/pronto-v1.1/benchmark/rocksdb/pronto/db_bench --sync"
+    "bin/db_bench_trinvrfc",
+    "otherdb/redodb/bin/db_bench_redoopt",
+    "~/pmemkv-tools/pmemkv_bench --db_size_in_gb=32 --db=/mnt/pmem0/pmemkv" 
+    "~/rocksdb/db_bench --db=/mnt/pmem0/rocksdb --sync"
     ]
 
 # List of threads to run with

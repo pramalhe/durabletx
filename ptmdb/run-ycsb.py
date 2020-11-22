@@ -16,9 +16,9 @@ import os
 # Databases
 #
 db_list = [
-#    "bin/ycsb_trinvrtl2",
-#    "bin/ycsb_trinvrfc",
-    "bin/ycsb_redodb",
+    "bin/ycsb_trinvrtl2",
+    "bin/ycsb_trinvrfc",
+#    "bin/ycsb_redodb",
 #    "bin/ycsb_pmemkv",
 #    "~/rocksdb/ycsb_tool --db=/mnt/pmem0/rocksdb --sync"
     ]
