@@ -32,12 +32,8 @@ CONC_PTM_NAMES := \
 BINARIES_SEQ = \
 	$(subst bin-, bin/psps-integer-,         $(CONC_PTM_NAMES)) \
 	$(subst bin-, bin/pq-ll-,                $(CONC_PTM_NAMES)) \
-	$(subst bin-, bin/pq-fat-,               $(CONC_PTM_NAMES)) \
 	$(subst bin-, bin/pstack-ll-,            $(CONC_PTM_NAMES)) \
-	$(subst bin-, bin/pstack-fat-,           $(CONC_PTM_NAMES)) \
 	$(subst bin-, bin/pset-tree-1m-,         $(CONC_PTM_NAMES)) \
-	$(subst bin-, bin/pset-hash-1m-,         $(CONC_PTM_NAMES)) \
-	$(subst bin-, bin/pset-hashfixed-1m-,    $(CONC_PTM_NAMES)) \
 	$(subst bin-, bin/pset-btree-1m-,        $(CONC_PTM_NAMES)) \
 	$(subst bin-, bin/pset-ziptree-1m-,      $(CONC_PTM_NAMES)) \
 

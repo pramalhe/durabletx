@@ -12,12 +12,6 @@ conc_benchmark_list = [
     "pset-btree-1m-", 
     "pset-hashfixed-1m-", 
     "pset-ziptree-1m-",
-#    "pset-ravl-1m-",
-#    "pq-fat-",
-#    "pstack-ll-",
-#    "pstack-fat-",
-#    "pset-hash-1m-", 
-#    "pset-skiplist-1m-",
     ]
 
 conc_ptm_list = [
