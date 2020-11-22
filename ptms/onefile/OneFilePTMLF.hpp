@@ -64,11 +64,11 @@ namespace poflf {
 
 // Size of the persistent memory region
 #ifndef PM_REGION_SIZE
-#define PM_REGION_SIZE 1024*1024*1024ULL // 1GB for now
+#define PM_REGION_SIZE 1*1024*1024*1024ULL // 1GB for now
 #endif
 // Name of persistent file mapping (back)
 #ifndef PM_FILE_NAME
-#define PM_FILE_NAME   "/dev/shm/trinityfc_shared"
+#define PM_FILE_NAME   "/dev/shm/oflf_shared"
 #endif
 
 //
@@ -79,7 +79,7 @@ namespace poflf {
 // Maximum number of registered threads that can execute transactions
 static const int REGISTRY_MAX_THREADS = 128;
 // Maximum number of stores in the WriteSet per transaction
-static const uint64_t TX_MAX_STORES = 40*1024;
+static const uint64_t TX_MAX_STORES = 128*1024;
 // Number of buckets in the hashmap of the WriteSet.
 static const uint64_t HASH_BUCKETS = 2048;
 
