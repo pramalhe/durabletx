@@ -15,8 +15,8 @@ db_list = [
     "bin/db_bench_trinvrtl2",
     "bin/db_bench_trinvrfc",
     "otherdb/redodb/bin/db_bench_redoopt",
-    "~/pmemkv-tools/pmemkv_bench --db_size_in_gb=32 --db=/mnt/pmem0/pmemkv" 
-    "~/rocksdb/db_bench --db=/mnt/pmem0/rocksdb --sync"
+    "~/pmemkv-tools/pmemkv_bench --db_size_in_gb=32 --db=/mnt/pmem0/pmemkv", 
+    "~/rocksdb/db_bench --db=/mnt/pmem0/rocksdb --sync",
     ]
 
 # List of threads to run with
