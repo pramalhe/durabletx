@@ -460,40 +460,40 @@ bin/pset-hashfixed-1m-oflf: pset-hashfixed-1m.cpp PBenchmarkSets.hpp ../ptms/one
 #
 # Multithreaded B-tree 1M
 #
-bin/pset-btree-1m-romlogfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/romuluslog/RomLogFC.hpp
+bin/pset-btree-1m-romlogfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/romuluslog/RomLogFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_ROM_LOG_FC $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-romlogfc -lpthread
 
-bin/pset-btree-1m-undologfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/undolog/UndoLogFC.hpp
+bin/pset-btree-1m-undologfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/undolog/UndoLogFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_UNDO_LOG_FC $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-undologfc -lpthread
 
-bin/pset-btree-1m-redologfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/redolog/RedoLogFC.hpp
+bin/pset-btree-1m-redologfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/redolog/RedoLogFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_REDO_LOG_FC $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-redologfc -lpthread
 
-bin/pset-btree-1m-trinityfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/trinity/TrinityFC.hpp
+bin/pset-btree-1m-trinityfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/trinity/TrinityFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_TRINITY_FC $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-trinityfc -lpthread
 
-bin/pset-btree-1m-trinityvrfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/trinity/TrinityVRFC.hpp
+bin/pset-btree-1m-trinityvrfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/trinity/TrinityVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_TRINITY_VR_FC $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-trinityvrfc -lpthread
 
-bin/pset-btree-1m-trinitytl2: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/trinity/TrinityTL2.hpp
+bin/pset-btree-1m-trinitytl2: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/trinity/TrinityTL2.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_TRINITY_TL2 $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-trinitytl2 -lpthread
 
-bin/pset-btree-1m-trinityvrtl2: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/trinity/TrinityVRTL2.hpp
+bin/pset-btree-1m-trinityvrtl2: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/trinity/TrinityVRTL2.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_TRINITY_VR_TL2 $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-trinityvrtl2 -lpthread
 
-bin/pset-btree-1m-trinityvrtl2pl: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/trinity/TrinityVRTL2PL.hpp
+bin/pset-btree-1m-trinityvrtl2pl: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/trinity/TrinityVRTL2PL.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_TRINITY_VR_TL2_PL $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-trinityvrtl2pl -lpthread
 
-bin/pset-btree-1m-quadrafc: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/quadra/QuadraFC.hpp
+bin/pset-btree-1m-quadrafc: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/quadra/QuadraFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_QUADRA_FC $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-quadrafc -lpthread
 
-bin/pset-btree-1m-quadravrfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/quadra/QuadraVRFC.hpp
+bin/pset-btree-1m-quadravrfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/quadra/QuadraVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_QUADRA_VR_FC $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-quadravrfc -lpthread
 
-bin/pset-btree-1m-duovrfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/duo/DuoVRFC.hpp
+bin/pset-btree-1m-duovrfc: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/duo/DuoVRFC.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_DUO_VR_FC $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-duovrfc -lpthread
 
-bin/pset-btree-1m-pmdk: pset-btree-1m.cpp PBenchmarkSets.hpp ../pdatastructures/queues/PSeqRedBlackTree.hpp ../ptms/pmdk/PMDKTM.hpp
+bin/pset-btree-1m-pmdk: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/pmdk/PMDKTM.hpp
 	$(CXX) $(CXXFLAGS) -DUSE_PMDK $(INCLUDES) pset-btree-1m.cpp -o bin/pset-btree-1m-pmdk -lpthread -lpmemobj
 
 bin/pset-btree-1m-oflf: pset-btree-1m.cpp PBenchmarkSets.hpp ../ptms/onefile/OneFilePTMLF.hpp

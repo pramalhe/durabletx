@@ -60,12 +60,11 @@ and make sure to enable flushing to PM by passing the option
 
 ## Running the benchmarks
 
-We have two kinds of benchmarks, 'run-seq.py' for sequential data structures and transactions (non concurrent), and 'run-conc.py' for concurrent data structures (which use fully ACID transactions). 
+Type 'run-conc.py' to execute the concurrent data structures (which use fully ACID transactions). 
 
-    ./run-seq.py
     ./run-conc.py
 
-By default they will execute runs of 20 seconds but this can be changed by editting the python scripts.
+By default they will execute runs of 20 seconds but this can be changed by editting the python script.
 
 
 ## Using one of these PTMs in your application
