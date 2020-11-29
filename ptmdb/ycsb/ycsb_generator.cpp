@@ -85,6 +85,7 @@ int main(int argc, char* argv[]) {
     workloada.update_proportion_ = 0.5;
     workloada.read_proportion_   = 0.5;
     workloada.key_size_          = 20;
+    workloada.value_size_        = 100;
     workloada.insert_start_      = 1*1000*1000;
     workloada.load_file          = "a-load-";
     workloada.run_file           = "a-run-";
@@ -95,6 +96,7 @@ int main(int argc, char* argv[]) {
     workloadb.update_proportion_ = 0.05;
     workloadb.read_proportion_   = 0.95;
     workloadb.key_size_          = 20;
+    workloadb.value_size_        = 100;
     workloadb.insert_start_      = 1*1000*1000;
     workloadb.load_file          = "b-load-";
     workloadb.run_file           = "b-run-";

@@ -13,6 +13,12 @@
 #ifdef USE_PMEMKV
 #include <libpmemkv.hpp>
 using namespace pmem::kv;
+#elif defined USE_ROCKSDB
+//#include "rocksdb/rocksdb_namespace.h"
+#define ROCKSDB_NAMESPACE rocksdb
+#include "rocksdb/db.h"
+#include "rocksdb/slice.h"
+#include "rocksdb/options.h"
 #else
 #include "db.h"
 #include "db_impl.h"
@@ -25,8 +31,13 @@ using namespace pmem::kv;
 
 using namespace std;
 using namespace chrono;
-
-namespace ptmdb {
+#ifdef USE_PMEMKV
+using namespace pmem::kv;
+#elif defined USE_ROCKSDB
+using namespace ROCKSDB_NAMESPACE;
+#else // PTMDB
+using namespace ptmdb;
+#endif
 
 enum class Operation {
   INSERT,
@@ -66,20 +77,21 @@ public:
         // Open/create DB file in PM
 #ifdef USE_PMEMKV
         config cfg;
-        status s = cfg.put_string("path", "/mnt/pmem0/");
-        //status s = cfg.put_string("path", "/dev/shm/pmemkv");
-        assert(s == status::OK);
-        static const long SIZE = 10*1024*1024*1024ULL; // 10 GB
-        s = cfg.put_uint64("size", SIZE);
-        assert(s == status::OK);
-        s = cfg.put_uint64("force_create", 1);
+        status s = cfg.put_path("/mnt/pmem0/pmemkv_pool");
         assert(s == status::OK);
         db_ = new db();
         assert(db_ != nullptr);
         s = db_->open("cmap", std::move(cfg));
         assert(s == status::OK);
+#elif defined USE_ROCKSDB
+        Options options{};
+        options.compression = ROCKSDB_NAMESPACE::kNoCompression;
+        options.create_if_missing = true;
+        Status s = DB::Open(options, "/mnt/pmem0/rocksdb", &db_);  // The path is used only by rocksdb
+        assert(s.ok());
 #else
-        Status s = DB::Open(Options{}, "/tmp/nothing", &db_);
+        Options options{};
+        Status s = DB::Open(options, "/tmp/notneeded", &db_);
         assert(s.ok());
 #endif
 
@@ -100,7 +112,7 @@ public:
 #else
                 Slice k {key.c_str()};
                 Slice v {value};
-                db_->Put(WriteOptions(), k, v);
+                db_->Put(WriteOptions{}, k, v);
 #endif
             }
         }
@@ -166,6 +178,10 @@ public:
 // This must be static to be passed to thread()
 void worker(YCSBPTM* ycsb, int mytid) {
 #ifdef USE_PMEMKV
+#elif defined ROCKSDB
+    WriteOptions writeOptions {};
+    ReadOptions readOptions {};
+    writeOptions.sync = true;
 #else
     WriteOptions writeOptions {};
     ReadOptions readOptions {};
@@ -215,7 +231,7 @@ void worker(YCSBPTM* ycsb, int mytid) {
 }
 
 
-}; // end namespace ptmdb
+//}; // end namespace ptmdb
 
 
 // run with this:
@@ -231,22 +247,22 @@ int main(int argc, char* argv[]) {
     int nThreads = atoi(argv[1]);
     string workloadPrefix{argv[2]};
     printf("threads=%d  workloadPrefix=[%s]\n", nThreads, argv[2]);
-    ptmdb::startAtZero.store(nThreads);
+    startAtZero.store(nThreads);
 
     // Load phase
-    ptmdb::YCSBPTM ycsb {nThreads, workloadPrefix};
+    YCSBPTM ycsb {nThreads, workloadPrefix};
 
     // Run phase
     printf("Starting up %d threads for 'Run phase'\n", nThreads);
     thread workers[nThreads];
     for (int tid = 0; tid < nThreads; tid++) ycsb.init(tid);
-    for (int tid = 0; tid < nThreads; tid++) workers[tid] = thread(ptmdb::worker, &ycsb, tid);
+    for (int tid = 0; tid < nThreads; tid++) workers[tid] = thread(worker, &ycsb, tid);
     // Rendez-vous
     this_thread::sleep_for(100ms);
     // Wait for startAtZero to be zero
-    while (ptmdb::startAtZero.load() != 0) ;
+    while (startAtZero.load() != 0) ;
     auto startBeats = steady_clock::now();
-    ptmdb::startFlag.store(true);
+    startFlag.store(true);
     this_thread::sleep_for(1ms);
     for (int tid = 0; tid < nThreads; tid++) workers[tid].join();
     auto stopBeats = steady_clock::now();

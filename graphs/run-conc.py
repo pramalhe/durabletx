@@ -9,7 +9,6 @@ conc_benchmark_list = [
     "pq-ll-",
     "pset-tree-1m-",
     "pset-btree-1m-", 
-    "pset-hashfixed-1m-", 
     "pset-ziptree-1m-",
     ]
 
@@ -31,8 +30,11 @@ for ptm in conc_ptm_list:
     for benchmark in conc_benchmark_list:
         print bin_folder+benchmark+ptm
         os.system("make persistencyclean")
-        os.system("sleep 2")
-        os.system(bin_folder+benchmark+ptm+" "+time_duration)
+        for mmap_attempts in range(10):
+            os.system("sleep 2")
+            ret = os.system(bin_folder+benchmark+ptm+" "+time_duration)
+            if ret != 42:  # We retry the mmap() if it gave us the wrong address
+                break      
 
 
 

@@ -714,10 +714,14 @@ public:
                 usleep(1000);
             }
         }
-        if (got_addr == MAP_FAILED || got_addr != regionAddr) {
-            printf("got_addr = %p instead of %p\n", got_addr, regionAddr);
-            perror("ERROR: mmap() is not working !!! ");
+        if (got_addr == MAP_FAILED) {
+            perror("ERROR: mmap() returned MAP_FAILED !!! ");
             assert(false);
+        }
+        if (got_addr != regionAddr) {
+            printf("got_addr = %p instead of %p\n", got_addr, regionAddr);
+            perror("Retry mmap() in a couple of seconds");
+            std::exit(42);
         }
         // Check if the header is consistent and only then can we attempt to re-use, otherwise we clear everything that's there
         if (reuseRegion) reuseRegion = (pmd->id == PMetadata::MAGIC_ID);
@@ -744,10 +748,14 @@ public:
         }
         // mmap() volatile memory range 'main'
         uint8_t* got_addr = (uint8_t *)mmap(regionAddr, regionSize, (PROT_READ | PROT_WRITE), MAP_SHARED, vfd, 0);
-        if (got_addr == MAP_FAILED || got_addr != regionAddr) {
-            printf("got_addr = %p  %p  %p\n", got_addr, regionAddr, MAP_FAILED);
-            perror("ERROR: mmap() is not working !!! ");
+        if (got_addr == MAP_FAILED) {
+            perror("ERROR: mmap() returned MAP_FAILED !!! ");
             assert(false);
+        }
+        if (got_addr != regionAddr) {
+            printf("got_addr = %p instead of %p\n", got_addr, regionAddr);
+            perror("Retry mmap() in a couple of seconds");
+            std::exit(42);
         }
         // If the file has just been created or if the header is not consistent, clear everything.
         // Otherwise, re-use and recover to a consistent state.
