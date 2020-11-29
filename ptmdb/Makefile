@@ -1,9 +1,9 @@
 CXX=g++-9
 BIN=bin
 # For testing on laptop
-#CXXFLAGS= -std=c++14 -g -DPWB_IS_NOP #-DPM_REGION_SIZE=2*1024*1024*1024ULL -fsanitize=address 
+CXXFLAGS= -std=c++14 -g -DPWB_IS_NOP #-DPM_REGION_SIZE=2*1024*1024*1024ULL -fsanitize=address 
 # for castor-1
-CXXFLAGS = -std=c++14 -g -O2 -DPWB_IS_CLWB -DPM_REGION_SIZE=32*1024*1024*1024ULL -DPM_FILE_NAME="\"/mnt/pmem0/durable\""
+#CXXFLAGS = -std=c++14 -g -O2 -DPWB_IS_CLWB -DPM_REGION_SIZE=32*1024*1024*1024ULL -DPM_FILE_NAME="\"/mnt/pmem0/durable\""
 # Possible options for PWB are:
 # -DPWB_IS_CLFLUSH		pwb is a CLFLUSH and pfence/psync are nops      (Broadwell)
 # -DPWB_IS_CLFLUSHOPT	pwb is a CLFLUSHOPT and pfence/psync are SFENCE (Kaby Lake) 
